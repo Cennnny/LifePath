@@ -1,27 +1,36 @@
-export default function ResultCard({ result, onRetry }) {
+import React from "react";
+import "./GradeResults.css";
 
-  const isGood = result && (result.includes("High") || result.includes("Pass")); 
+export default function ResultCard({ result, onRetry, formData }) {
   
-  return (
-      <div className="card" style={{ textAlign: "center" }}>
-          <h2>Recommendation Result</h2>
-          <p className="subtitle">Based on your demographic profile</p>
+  const recommendation = result || "No Result";
+  const incomeText = formData?.income || "your income goals";
+  const expenseText = formData?.expenses || "your spending habits";
 
-          <div style={{
-              margin: "30px 0",
-              padding: "20px",
-              background: isGood ? "#dcfce7" : "#fee2e2",
-              color: isGood ? "#166534" : "#991b1b",
-              borderRadius: "12px",
-              fontSize: "24px",
-              fontWeight: "bold"
-          }}>
-              {result}
+  return (
+      // Added 'result-center' class to center this card's content
+      <div className="card result-center">
+          
+          <h2 className="result-header">
+            Recommended Education Level
+          </h2>
+          
+          <div className="result-value">
+              {recommendation}
           </div>
 
-          <p style={{ fontSize: "14px", color: "#6b7280", marginBottom: "20px" }}>
-              This is an AI-generated prediction based on the data you provided.
-          </p>
+          <div className="result-context">
+            <p>
+              Based on your financial goals (<strong>{incomeText}</strong>) and 
+              lifestyle preferences (<strong>{expenseText}</strong>), our model suggests 
+              that this educational level is statistically sufficient to achieve this lifestyle.
+            </p>
+          </div>
+
+          <small className="disclaimer">
+              *This prediction is based on statistical patterns from our dataset and is intended 
+              for educational planning purposes only.
+          </small>
 
           <button className="primary" onClick={onRetry}>
               Try Again
