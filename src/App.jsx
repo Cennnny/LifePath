@@ -4,10 +4,11 @@ import ResultCard from "./components/ResultCard";
 import "./components/GradeResults.css"; 
 
 function App() {
-    const [view, setView] = useState("form");  'result'
+    const [view, setView] = useState("form");
     const [prediction, setPrediction] = useState(null);
 
     const [formData, setFormData] = useState(null); 
+
     const handlePredict = async (dataFromForm) => {
     setFormData(dataFromForm); 
     setView("loading");
@@ -17,7 +18,7 @@ function App() {
             const response = await fetch("http://localhost:5000/api/predict", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formData),
+                body: JSON.stringify(dataFromForm),
             });
 
             const data = await response.json();
